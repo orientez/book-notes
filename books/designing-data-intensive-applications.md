@@ -1132,7 +1132,7 @@ This problem is also called _service discovery_. There are different approaches:
 In many cases the problem is: how does the component making the routing decision learn about changes in the assignment of partitions to nodes?
 
 Many distributed data systems rely on a separate coordination service such as ZooKeeper to keep track of this cluster metadata. Each node registers itself in ZooKeeper, and ZooKeeper maintains the authoritative mapping of partitions to nodes. The routing tier or the partitioning-aware client, can subscribe to this information in ZooKeeper. HBase, SolrCloud and Kafka use ZooKeeper to track partition assignment. MongoDB relies on its own _config server_. Cassandra and Riak take a different approach: they use a 🟨🟨🟨_gossip protocol_🟨🟨🟨.
-
+_gossip protocol_ puts more complexity in the database nodes but avoids the dependency on an external coordination service such as ZooKeeper.
 #### Parallel query execution
 
 _Massively parallel processing_ (MPP) relational database products are much more sophisticated in the types of queries they support.
