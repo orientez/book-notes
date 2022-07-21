@@ -1035,7 +1035,7 @@ If you want to allow people to _remove_ things, union of siblings may not yield 
 
 Merging siblings in application code is complex and error-prone, there are efforts to design data structures that can perform this merging automatically (CRDTs).
 
-#### 🟨 Version vectors 🟨 
+#### 🟨🟨🟨Version vectors🟨🟨🟨 
 
 We need a version number _per replica_ as well as per key. Each replica increments its own version number when processing a write, and also keeps track of the version numbers it has seen from each of the other replicas.
 
@@ -1078,7 +1078,7 @@ A good hash function takes skewed data and makes it uniformly distributed. There
 
 Unfortunately we lose the ability to do efficient range queries. Keys that were once adjacent are now scattered across all the partitions. Any range query has to be sent to all partitions.
 
-#### Skewed workloads and relieving hot spots
+#### 🟨🟨🟨Skewed workloads and relieving hot spots🟨🟨🟨
 
 You can't avoid hot spots entirely. For example, you may end up with large volume of writes to the same key.
 
