@@ -809,8 +809,8 @@ The main disadvantage is that the log describes the data at a very low level (li
 
 Usually is not possible to run different versions of the database in leaders and followers. This can have a big operational impact, like making it impossible to have a zero-downtime upgrade of the database.
 
-##### Logical (row-based) log replication
-
+##### 🟨 Logical (row-based) log replication  🟨 
+<span style="color:blue">some *blue* text</span>
 Basically a sequence of records describing writes to database tables at the granularity of a row:
 * For an inserted row, the new values of all columns.
 * For a deleted row, the information that uniquely identifies that column.
