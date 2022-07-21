@@ -1531,7 +1531,7 @@ A node cannot necessarily trust its own judgement of a situation. Many distribut
 
 Commonly, the quorum is an absolute majority of more than half of the nodes.
 
-#### Fencing tokens
+#### 🟨🟨🟨Fencing tokens🟨🟨🟨
 
 Assume every time the lock server grant sa lock or a lease, it also returns a _fencing token_, which is a number that increases every time a lock is granted (incremented by the lock service). Then we can require every time a client sends a write request to the storage service, it must include its current fencing token.
 
@@ -1539,6 +1539,9 @@ The storage server remembers that it has already processed a write with a higher
 
 If ZooKeeper is used as lock service, the transaciton ID `zcid` or the node version `cversion` can be used as a fencing token.
 
+```
+This technique is employed to avoid long lasting stale cache. 
+```
 #### Byzantine faults
 
 Fencing tokens can detect and block a node that is _inadvertently_ acting in error.
