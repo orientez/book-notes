@@ -1321,7 +1321,7 @@ There are a few pros and cons for stored procedures:
 * Each database vendor has its own language for stored procedures. They usually look quite ugly and archaic from today's point of view, and they lack the ecosystem of libraries.
 * It's harder to debug, more awkward to keep in version control and deploy, trickier to test, and difficult to integrate with monitoring.
 
-Modern implementations of stored procedures include general-purpose programming languages instead: VoltDB uses Java or Groovy, Datomic uses Java or Clojure, and Redis uses Lua.
+Modern implementations of stored procedures include general-purpose programming languages instead: VoltDB uses Java or Groovy, Datomic uses Java or Clojure, and 🟨🟨🟨Redis uses Lua🟨🟨🟨.
 
 ##### Partitioning
 
