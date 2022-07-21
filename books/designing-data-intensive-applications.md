@@ -2141,11 +2141,11 @@ Specialised databases such as Event Store have been developed to support applica
 
 Applications that use event sourcing need to take the log of evetns and transform it into application state that is suitable for showing to a user.
 
-Replying the event log allows you to reconstruct the current state of the system.
+Reapplying the event log allows you to reconstruct the current state of the system.
 
 Applications that use event sourcing typically have some mechanism for storing snapshots.
 
-Event sourcing philosophy is careful to distinguis between _events_ and _commands_. When a request from a user first arrives, it is initially a command: it may still fail (like some integrity condition is violated). If the validation is successful, it becomes an event, which is durable and immutable.
+Event sourcing philosophy is careful to distinguish between _events_ and _commands_. When a request from a user first arrives, it is initially a command: it may still fail (like some integrity condition is violated). If the validation is successful, it becomes an event, which is durable and immutable.
 
 A consumer of the event stream is not allowed to reject an event: Any validation of a command needs to happen synchronously, before it becomes an event. For example, by using a serializable transaction that atomically validates the command and publishes the event.
 
@@ -2167,7 +2167,7 @@ You can derive views from the same event log, Druid ingests directly from Kafka,
 
 Storing data is normally quite straightforward if you don't have to worry about how it is going to be queried and accessed. You gain a lot of flexibility by separating the form in which data is written from the form it is read, this idea is known as _command query responsibility segregation_ (CQRS).
 
-There is this fallacy that data must be written in the same form as it will be queried.
+🟨🟨🟨There is this fallacy that data must be written in the same form as it will be queried.🟨🟨🟨
 
 The biggest downside of event sourcing and change data capture is that consumers of the event log are usually asynchronous, a user may make a write to the log, then read from a log derived view and find that their write has not yet been reflected.
 
@@ -2180,7 +2180,7 @@ Sometimes you may want to rewrite history, Datomic calls this feature _excision_
 ### Processing Streams
 
 What you can do with the stream once you have it:
-1. You can take the data in the events and write it to the database, cache, search index, or similar storage system, from where it can thenbe queried by other clients.
+1. You can take the data in the events and write it to the database, cache, search index, or similar storage system, from where it can then be queried by other clients.
 2. You can push the events to users in some way, for example by sending email alerts or push notifications, or to a real-time dashboard.
 3. You can process one or more input streams to produce one or more output streams.
 
