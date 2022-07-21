@@ -1122,7 +1122,7 @@ Fully automated rebalancing may seem convenient but the process can overload the
 
 It can be good to have a human in the loop for rebalancing. You may avoid operational surprises.
 
-### Request routing
+### 🟨🟨🟨Request routing🟨🟨🟨
 
 This problem is also called _service discovery_. There are different approaches:
 1. Allow clients to contact any node and make them handle the request directly, or forward the request to the appropriate node.
