@@ -1035,7 +1035,7 @@ If you want to allow people to _remove_ things, union of siblings may not yield 
 
 Merging siblings in application code is complex and error-prone, there are efforts to design data structures that can perform this merging automatically (CRDTs).
 
-#### Version vectors
+#### 🟨 Version vectors 🟨 
 
 We need a version number _per replica_ as well as per key. Each replica increments its own version number when processing a write, and also keeps track of the version numbers it has seen from each of the other replicas.
 
