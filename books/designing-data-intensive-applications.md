@@ -2200,7 +2200,7 @@ Frameworks with analytics in mind are: Apache Storm, Spark Streaming, Flink, Con
 
 Sometimes there is a need to search for individual events continually, such as full-text search queries over streams.
 
-Message-passing ystems are also based on messages and events, we normally don't think of them as stream processors.
+Message-passing systems are also based on messages and events, we normally don't think of them as stream processors.
 
 There is some crossover area between RPC-like systems and stream processing. Apache Storm has a feature called _distributed RPC_.
 
@@ -2217,7 +2217,7 @@ You can time out and declare a window ready after you have not seen any new even
 1. You can ignore the stranggler events, tracking the number of dropped events as a metric.
 2. Publish a _correction_, an updated value for the window with stranglers included. You may also need to retrat the previous output.
 
-To adjust for incofrrect device clocks, one approach is to log three timestamps:
+🟨🟨🟨To adjust for incorrect device clocks, one approach is to log three timestamps🟨🟨🟨:
 * The time at which the event occurred, according to the device clock
 * The time at which the event was sent to the server, according to the device clock
 * The time at which the event was received by the server, according to the server clock.
@@ -2270,11 +2270,11 @@ Even though restarting tasks means records can be processed multiple times, the 
 
 With stream processing waiting until a tasks if finished before making its ouput visible is not an option, stream is infinite.
 
-One solution is to break the stream into small blocks, and treat each block like a minuature batch process (_micro-batching_). This technique is used in Spark Streaming, and the batch size is typically around one second.
+🟨🟨🟨One solution is to break the stream into small blocks, and treat each block like a minuature batch process (_micro-batching_). This technique is used in Spark Streaming, and the batch size is typically around one second.🟨🟨🟨
 
 An alternative approach, used in Apache Flint, is to periodically generate rolling checkpoints of state and write them to durable storage. If a stream operator crashes, it can restart from its most recent checkpoint.
 
-Microbatching and chekpointing approaches provide the same exactly-once semantics as batch processing. However, as soon as output leaves the stream processor, the framework is no longer able to discard the output of a failed batch.
+`Microbatching` and `chekpointing` approaches provide the same exactly-once semantics as batch processing. However, as soon as output leaves the stream processor, the framework is no longer able to discard the output of a failed batch.
 
 In order to give appearance of exactly-once processing, things either need to happen atomically or none of must happen. Things should not go out of sync of each other. Distributed transactions and two-phase commit can be used.
 
