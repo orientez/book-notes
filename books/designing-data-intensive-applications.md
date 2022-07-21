@@ -1533,7 +1533,7 @@ Commonly, the quorum is an absolute majority of more than half of the nodes.
 
 #### 🟨🟨🟨Fencing tokens🟨🟨🟨
 
-Assume every time the lock server grant sa lock or a lease, it also returns a _fencing token_, which is a number that increases every time a lock is granted (incremented by the lock service). Then we can require every time a client sends a write request to the storage service, it must include its current fencing token.
+Assume every time the lock server grant a lock or a lease, it also returns a _fencing token_, which is a number that increases every time a lock is granted (incremented by the lock service). Then we can require every time a client sends a write request to the storage service, it must include its current fencing token.
 
 The storage server remembers that it has already processed a write with a higher token number, so it rejects the request with the last token.
 
@@ -2107,11 +2107,11 @@ Recently there has been a growing interest in _change data capture_ (CDC), which
 
 For example, you can capture the changes in a database and continually apply the same changes to a search index.
 
-We can call log consumers _derived data systems_: the data stored in the search index and the data warehouse is just another view. Change data capture is a mechanism for ensuring that all changes made to the system of record are also reflected in the derived data systems.
+We can call log consumers 🟨🟨🟨_derived data systems_🟨🟨🟨: the data stored in the search index and the data warehouse is just another view. Change data capture is a mechanism for ensuring that all changes made to the system of record are also reflected in the derived data systems.
 
 Change data capture makes one database the leader, and turns the others into followers.
 
-Database triggers can be used to implement change data capture, but they tend to be fragile and have significant performance overheads. Parsing the replication log can be a more robust approach.
+Database triggers can be used to implement [change data capture](https://aws.amazon.com/about-aws/whats-new/2014/11/10/introducing-dynamodb-streams/), but they tend to be fragile and have significant performance overheads. Parsing the replication log can be a more robust approach.
 
 LinkedIn's Databus, Facebook's Wormhole, and Yahoo!'s Sherpa use this idea at large scale. Bottled Watter implements CDC for PostgreSQL decoding the write-ahead log, Maxwell and Debezium for something similar for MySQL by parsing the binlog, Mongoriver reads the MongoDB oplog, and GoldenGate provide similar facilities for Oracle.
 
