@@ -2302,7 +2302,7 @@ Flink periodically captures snapshots and writes them to durable storage such as
 
 Updating a derived data system based on an event log can often be made determinisitic and idempotent.
 
-Distributed transactions decide on an ordering of writes by using locks for mutual exclusion, while CDC and event sourcing use a log for ordering. Distributed transactions use atomic commit to ensure exactly once semantics, while log-based systems are based on deterministic retry and idempotence.
+Distributed transactions decide on an ordering of writes by using locks for mutual exclusion, while CDC and event sourcing use a log for ordering. Distributed transactions use atomic commit to ensure 🟨🟨🟨exactly once semantics🟨🟨🟨, while log-based systems are based on deterministic retry and idempotence.
 
 Transaction systems provide linearizability, useful guarantees as reading your own writes. On the other hand, derived systems are often updated asynchronously, so they do not by default offer the same timing guarantees.
 
@@ -2314,11 +2314,11 @@ However, as systems are scaled towards bigger and more coplex worloads, limitiat
 * When two events originate in different services, there is no defined order for those events.
 * Some applications maintain client-side state. Clients and servers are very likely to see events in different orders.
 
-Deciding on a total order of events is known as _total order broadcast_, which is equivalent to consensus. It is still an open research problem to design consensus algorithms that can scale beyond the throughput of a single node.
+Deciding on a total order of events is known as 🟨🟨🟨`total order broadcast`🟨🟨🟨, which is equivalent to consensus. It is still an open research problem to design consensus algorithms that can scale beyond the throughput of a single node.
 
 #### Batch and stream processing
 
-The fundamental difference between batch processors and batch processes is that the stream processors operate on unbounded datasets whereas batch processes inputs are of a known finite size.
+The fundamental difference between stream processors and batch processes is that the stream processors operate on unbounded datasets whereas batch processes inputs are of a known finite size.
 
 Spark performs stream processing on top of batch processing. Apache Flink performs batch processing in top of stream processing.
 
@@ -2332,7 +2332,7 @@ Derived views allow _gradual_ evolution. If you want to restructure a dataset, y
 
 #### Lambda architecture
 
-The whole idea behind lambda architecture is that incoming data should be recorded by appending immutable events to an always-growing dataset, similarly to event sourcing. From these events, read-optimised vuews are derived. Lambda architecture proposes running two different systems in parallel: a batch processing system such as Hadoop MapReduce, and a stream-processing system as Storm.
+The whole idea behind lambda architecture is that incoming data should be recorded by appending immutable events to an always-growing dataset, similarly to event sourcing. From these events, read-optimised views are derived. Lambda architecture proposes running two different systems in parallel: a batch processing system such as Hadoop MapReduce, and a stream-processing system as Storm.
 
 The stream processor produces an approximate update to the view: the batch processor produces a corrected version of the derived view.
 
@@ -2344,7 +2344,7 @@ The stream process can use fast approximation algorithms while the batch process
 
 Batch and stream processors are like elaborate implementations of triggers, stored procedures, and materialised view maintenance routines. The derived data systems they maintain are like different index types.
 
-There are two avenues by which different storate and processing tools can nevertheless be composed into a cohesive system:
+There are two avenues by which different storage and processing tools can nevertheless be composed into a cohesive system:
 * Federated databases: unifying reads. It is possible to provide a unified query interface to a wide variety of underlying storate engines and processing methods, this is known as _federated database_ or _polystore_. An example is PostgreSQL's _foreign data wrapper_.
 * Unbundled databases: unifying writes. When we compose several storage systems, we need to ensure that all data changes end up in all the right places, even in the face of faults, it is like _unbundling_ a database's index-maintenance features in a way that can synchronise writes across disparate technologies.
 
@@ -2352,7 +2352,7 @@ Keeping the writes to several storage systems in sync is the harder engineering 
 
 Synchronising writes requires distributed transactions across heterogeneous storage systems which may be the wrong solution. An asynchronous event log with idempotent writes is a much more robust and practical approach.
 
-The big advantage is _loose coupling_ between various components:
+The big advantage is 🟨🟨🟨`loose coupling`🟨🟨🟨 between various components:
 1. Asynchronous event streams make the system as a whole more robust to outages or performance degradation of individual components.
 2. Unbundling data systems allows different software components and services to be developed, improved and maintained independently from each other by different teams.
 
@@ -2373,8 +2373,8 @@ Instead of treating the database as a passive variable that is manipulated by th
 A customer is purchasing an item that is priced in one currency but paid in another currency. In order to perform the currency conversion, you need to know the current exchange rate.
 
 This could be implemented in two ways:
-* Microservices approach, the code that processes the purchase would probably wuery an exchange-rate service or a database in order to obtain the current rate for a particular currency.
-* Dataflow approach, the code that processes purchases would subscribe to a stream of exchange rate updates ahead of time, and record the current rate in a local database whenever it changes. When it comes to processing the purchase, it only needs to query the local database.
+* Microservices approach, the code that processes the purchase would probably query an exchange-rate service or a database in order to obtain the current rate for a particular currency.
+* 🟨🟨🟨Dataflow approach, the code that processes purchases would subscribe to a stream of exchange rate updates ahead of time, and record the current rate in a local database whenever it changes. When it comes to processing the purchase, it only needs to query the local database.
 
 The dataflow is not only faster, but it is also more robust to the failure of another service.
 
@@ -2386,7 +2386,7 @@ A full-text search index is a good example: the write path updates the index, an
 
 If you don't have an index, a search query would have to scan over all documents, which is very expensive. No index means less work on the write path (no index to update), but a lot more work on the read path.
 
-Another option would be to precompute the search results for only a fixed set of the most common queries. The uncommon queries can still be served from the inxed. This is what we call a _cache_ although it could also be called a materialised view.
+Another option would be to precompute the search results for only a fixed set of the most common queries. The uncommon queries can still be served from the indexed. This is what we call a _cache_ although it could also be called a `materialised view`.
 
 ##### Read are events too
 
@@ -2438,14 +2438,14 @@ Asynchronous multi-master replication is ruled out as different masters concurre
 
 ##### Uniqueness in log-based messaging
 
-A stream processor consumes all the messages in a log partition sequentially on a single thread. A stream processor can unambiguously and deterministically decide which one of several conflicting operations came first.
+A stream processor consumes all the messages in a log partition sequentially on a single thread. 🟨🟨🟨`A stream processor`🟨🟨🟨 can unambiguously and deterministically decide which one of several conflicting operations came first.
 1. Every request for a username is encoded as a message.
-2. A stream processor sequentially reads the requests in the log. For every request for a username tht is available, it records the name as taken and emits a success message to an output stream. For every request for a username that is already taken, it emits a rejection message to an output stream.
+2. A stream processor sequentially reads the requests in the log. For every request for a username that is available, it records the name as taken and emits a success message to an output stream. For every request for a username that is already taken, it emits a rejection message to an output stream.
 3. The client waits for a success or rejection message corresponding to its request.
 
 The approach works not only for uniqueness constraints, but also for many other kinds of constraints.
 
-##### Multi-partition request processing
+##### 🟨🟨🟨Multi-partition request processing🟨🟨🟨
 
 There are potentially three partitions: the one containing the request ID, the one containing the payee account, and one containing the payer account.
 
@@ -2481,13 +2481,14 @@ Stream processing systems can preserve integrity without requireing distributed 
 
 In many businesses contexts, it is actually acceptable to temporarily violate a constraint and fix it up later apologising. The cost of the apology (money or reputation), it is often quite low.
 
-#### Coordination-avoiding data-systems
+#### 🟨🟨🟨Coordination-avoiding data-systems🟨🟨🟨
 
 1. Dataflow systems can maintain integrity guarantees on derived data without atomic commit, linearizability, or synchronous cross-partition coordination.
 2. Although strict uniqueness constraints require timeliness and coordination, many applications are actually fine with loose constraints than may be temporarily violated and fixed up later.
 
 Dataflow systems can provide the data management services for many applications without requiring coordination, while still giving strong integrity guarantees. _Coordination-avoiding_ data systems can achieve better performance and fault tolerance than systems that need to perform synchronous coordination.
 
+`Apply coordination only when needed in a reduced scope.`
 #### Trust, but verify
 
 Checking the integrity of data is know as _auditing_.
